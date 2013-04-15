@@ -118,9 +118,9 @@ class CustisTemplate extends QuickTemplate {
 
   </head>
   
-  <body <?php if($this->data['body_ondblclick']) { ?>ondblclick="<?php $this->text('body_ondblclick') ?>"<?php } ?>
-        <?php if($this->data['body_onload'    ]) { ?>onload="<?php     $this->text('body_onload')     ?>"<?php } ?>
-        <?php if($this->data['nsclass'        ]) { ?>class="<?php      $this->text('nsclass')         ?>"<?php } ?>>
+  <body <?php if(!empty($this->data['body_ondblclick'])) { ?>ondblclick="<?php $this->text('body_ondblclick') ?>"<?php } ?>
+        <?php if(!empty($this->data['body_onload'    ])) { ?>onload="<?php     $this->text('body_onload')     ?>"<?php } ?>
+        <?php if(!empty($this->data['nsclass'        ])) { ?>class="<?php      $this->text('nsclass')         ?>"<?php } ?>>
   <div id="globalWrapper">
      <div id="column-content">
       	<div id="content">
@@ -229,11 +229,13 @@ class CustisTemplate extends QuickTemplate {
   	<div class='portlet' id='p-<?php echo htmlspecialchars($bar) ?>'>
   	  <h5><?php $out = wfMsg( $bar ); if (wfEmptyMsg($bar, $out)) echo $bar; else echo $out; ?></h5>
   	  <div class='pBody'> 
+  	    <?php if (is_array($cont)) { ?>
   	    <ul>
   	    <?php foreach($cont as $key => $val) { ?>
-  	      <li id="<?php echo htmlspecialchars($val['id']) ?><?php echo "**$key++{$val}--" ?>"><a href="<?php echo htmlspecialchars($val['href']) ?>"><?php echo htmlspecialchars($val['text'])?></a></li>
-  	     <?php } ?>
+  	      <li id="<?php echo htmlspecialchars($val['id']) ?>"><a href="<?php echo htmlspecialchars($val['href']) ?>"><?php echo htmlspecialchars($val['text'])?></a></li>
+  	    <?php } ?>
   	    </ul>
+  	    <?php } else { echo $cont; } ?>
   	  </div>
   	</div>
   	<?php } ?>
@@ -245,11 +247,11 @@ class CustisTemplate extends QuickTemplate {
 		<table width = "100%">
 			<tr><td width="5%" align="left" nowrap='nowrap'><?php if($this->data['copyrightico']) { ?><div id="f-copyrightico"><?php $this->html('copyrightico') ?></div><?php } ?></td>
 				<td align="center">
-	   <?php if($this->data['lastmod'   ]) { ?><?php    $this->html('lastmod')    ?> - <?php } ?>
-	  <?php if($this->data['viewcount' ]) { ?><?php  $this->html('viewcount')  ?> - <?php } ?>
-	  <?php if($this->data['numberofwatchingusers' ]) { ?><?php  $this->html('numberofwatchingusers') ?> - <?php } ?>
-	  <?php if($this->data['credits'   ]) { ?><?php    $this->html('credits')    ?> - <?php } ?>
-	  <?php if($this->data['tagline']) { ?><?php echo $this->data['tagline'] ?> - <?php } ?>
+	   <?php if(!empty($this->data['lastmod'])) { ?><?php $this->html('lastmod') ?> - <?php } ?>
+	  <?php if(!empty($this->data['viewcount'])) { ?><?php $this->html('viewcount') ?> - <?php } ?>
+	  <?php if(!empty($this->data['numberofwatchingusers' ])) { ?><?php  $this->html('numberofwatchingusers') ?> - <?php } ?>
+	  <?php if(!empty($this->data['credits'])) { ?><?php $this->html('credits') ?> - <?php } ?>
+	  <?php if(!empty($this->data['tagline'])) { ?><?php echo $this->data['tagline'] ?> - <?php } ?>
 	</td>
       </tr>
       </table>
